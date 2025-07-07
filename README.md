@@ -13,18 +13,25 @@
     npm install -D nodemon
     ```
 
-3.  **Environment Variables**: Configuration for the application is managed through a `.env` file in the project root. This file is loaded by the `dotenv` package.
+3.  **Environment Variables**: Configuration for the application is managed through a `.env` file in the project root. The `dotenv.config()` function reads this file and loads the variables into Node.js's `process.env` object.
 
     Create a `.env` file and add the necessary variables:
     ```
     PORT=4000
+    MONGO_URI=<your_mongodb_uri>
     ```
+    note that we added /products in the URI as the database is targeting a products page not the application home page. Note that we created a cluster and a project on mongodb where we got the connection string.
+    * Note tha the network access is restricted to the IP of the device you are working on. 
+    * I allowed access from everywhere for this project 
+
+
     **Note**: The `.env` file should be listed in `.gitignore` and should not be committed to version control.
+
+4.  **Database Connection**: The connection logic is in `backend/config/db.js`. The server attempts to connect to MongoDB inside the `app.listen()` callback when the server starts. If the connection fails, the process will exit.
 
 ## Running the Application
 
-To start the server for development, use the `dev` script from `package.json`:
-
+To start the server in **development mode** (which will automatically restart on file changes), use the `dev` script:
 ```bash
 npm run dev
 ```
