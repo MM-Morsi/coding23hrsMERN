@@ -42,6 +42,24 @@ npm run dev
 This command executes `node backend/server.js` to start the application.
 This command executes `nodemon backend/server.js` to start the application using nodemon to reflect changes automatically.
 
+## API Endpoints
+
+### Create a Product (`POST /products`)
+
+This endpoint is responsible for creating a new product and saving it to the database.
+
+*   **Request Body**: The endpoint expects a JSON object in the request body containing the product's `name`, `price`, and `image`.
+*   **Asynchronous Function**: The route handler is declared as an `async` function. This is crucial because interacting with a database is an I/O operation that takes time. Using `async/await` allows the server to handle other requests while waiting for the database to save the document, preventing the application from freezing.
+*   **Process Flow**:
+    1.  The server receives a `POST` request containing the new product's data in `req.body`.
+    2.  It uses the `Product` Mongoose model to create a new product document.
+    3.  The `await Product.create(req.body)` line attempts to save this new document to the MongoDB database.
+    4.  **Success**: If the product is saved successfully, the server responds with a `201 Created` status code and the newly created product object as JSON.
+    5.  **Failure**: The endpoint has two main error-handling paths:
+        -   **`400 Bad Request`**: If the `name`, `price`, or `image` fields are missing from the request body, the server will respond with this status code.
+        -   **`500 Internal Server Error`**: If an error occurs on the server while trying to save the product to the database, the server will respond with this status code.
+
+
 
 # Screenshots 
 ![alt text](image.png)
