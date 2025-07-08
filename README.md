@@ -27,7 +27,10 @@
 
     **Note**: The `.env` file should be listed in `.gitignore` and should not be committed to version control.
 
-4.  **Database Connection**: The connection logic is in `backend/config/db.js`. The server attempts to connect to MongoDB inside the `app.listen()` callback when the server starts. If the connection fails, the process will exit.
+4.  **Database Connection**: The connection logic is in `backend/config/db.js`. The application connects to MongoDB before starting the Express server. If the connection fails, the process will exit.
+
+5.  **Data Models**: The application uses Mongoose to define schemas for the data. The models are located in the `backend/models` directory.
+    -   **Product Model**: Located at `backend/models/product.model.js`, this schema defines the structure for products, including `name`, `price`, and `image` fields, along with timestamps.
 
 ## Running the Application
 
@@ -38,3 +41,7 @@ npm run dev
 
 This command executes `node backend/server.js` to start the application.
 This command executes `nodemon backend/server.js` to start the application using nodemon to reflect changes automatically.
+
+
+# Screenshots 
+![alt text](image.png)
