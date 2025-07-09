@@ -44,8 +44,9 @@ This command executes `nodemon backend/server.js` to start the application using
 
 ## API Endpoints
 
-### Create a Product (`POST /products`)
+To handle incoming requests, the Express server is configured to parse JSON-formatted request bodies using the `express.json()` middleware. This is essential for the `POST /api/products` endpoint to be able to read the product data sent from the client.
 
+### Create a Product (`POST /api/products`)
 This endpoint is responsible for creating a new product and saving it to the database.
 
 *   **Request Body**: The endpoint expects a JSON object in the request body containing the product's `name`, `price`, and `image`.
@@ -59,6 +60,7 @@ This endpoint is responsible for creating a new product and saving it to the dat
         -   **`400 Bad Request`**: If the `name`, `price`, or `image` fields are missing from the request body, the server will respond with this status code.
         -   **`500 Internal Server Error`**: If an error occurs on the server while trying to save the product to the database, the server will respond with this status code.
 
+*   **Testing with Postman**: You can test this endpoint using a tool like Postman. Send a `POST` request to `http://localhost:4000/api/products` with a `Content-Type` header of `application/json` and a raw JSON body like: `{"name": "My Product", "price": 10.99, "image": "image_url.jpg"}`.
 
 
 # Screenshots 
