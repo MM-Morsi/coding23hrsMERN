@@ -13,6 +13,11 @@
     npm install -D nodemon
     ```
 
+    To install all dependencies, use the following command:
+    ```bash
+    npm install
+    ```
+
 3.  **Environment Variables**: Configuration for the application is managed through a `.env` file in the project root. The `dotenv.config()` function reads this file and loads the variables into Node.js's `process.env` object.
 
     Create a `.env` file and add the necessary variables:
@@ -61,6 +66,20 @@ This endpoint is responsible for creating a new product and saving it to the dat
         -   **`500 Internal Server Error`**: If an error occurs on the server while trying to save the product to the database, the server will respond with this status code.
 
 *   **Testing with Postman**: You can test this endpoint using a tool like Postman. Send a `POST` request to `http://localhost:4000/api/products` with a `Content-Type` header of `application/json` and a raw JSON body like: `{"name": "My Product", "price": 10.99, "image": "image_url.jpg"}`.
+
+
+### Update a Product (`PUT /api/products/:id`)
+This endpoint is responsible for updating an existing product in the database.
+
+*   **Route Parameter**: The `:id` in the path is a route parameter that captures the product's unique identifier. This `id` is expected to be a valid MongoDB ObjectId.
+*   **Request Body**: The endpoint expects a JSON object in the request body containing the updated product data.
+*   **Process Flow**:
+    1.  The server receives a `PUT` request to update a product, with the product's `id` extracted from `req.params.id` and the new product data from `req.body`.
+    2.  It uses `Product.findByIdAndUpdate(id, product, { new: true })` to find the product by its ID and update it with the new data. The `{ new: true }` option ensures that the updated product is returned.
+    3.  **Success**: If the product is found and successfully updated, the server responds with a `200 OK` status code and a success message.
+    4.  **Failure**:
+        -   **`400 Bad Request`**: If the provided `id` is not a valid MongoDB ObjectId, the server responds with this status code. You can validate the id using `mongoose.Types.ObjectId.isValid(id)`.
+        -   **`500 Internal Server Error`**: If an error occurs on the server while trying to update the product, the server responds with this status code.
 
 
 # Screenshots 
