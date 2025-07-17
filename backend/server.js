@@ -57,8 +57,5 @@ app.put("/api/products/:id", async (req, res) => {
 // console.log(process.env.MONGO_URI)
 
 app.listen(port, () => {
-    connectDB()
     console.log(`Server started at http://localhost:${port}`);
 })
-
-
